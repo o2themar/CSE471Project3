@@ -55,13 +55,15 @@ namespace StepDX
 
 
         // function to begin playing background music, called with each advance() in game
-        public void BGD()
+        public void BGD(bool gameover = false)
         {
             if (bgd == null)
                 return;  // if sound not loaded properly, do nothing
 
             if (!bgd.Status.Playing)
                 bgd.Play(0, BufferPlayFlags.Default);  // if sound not currently playing, play it
+
+            if (gameover == true) { bgd.Stop(); }
         }
 
 
@@ -94,7 +96,6 @@ namespace StepDX
             if (!pnt.Status.Playing)
                 pnt.Play(0, BufferPlayFlags.Default);  // if sound not currently playing, play it
         }
-
 
     }
 }

@@ -440,7 +440,9 @@ namespace StepDX
             }
 
             score.Advance(time);
-            audio.BGD(); 
+
+            if (!game_over.gameOver) { audio.BGD(); }
+            else { audio.BGD(true);  audio.OVR(); }
         }
 
         public void AddObstacle(float left, float right, float bottom, float top, Color color)
