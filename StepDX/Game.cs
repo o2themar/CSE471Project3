@@ -115,7 +115,7 @@ namespace StepDX
             score = new Score(device);
 
             lives = new Lives(device);
-            lives.lives_number = 3000;         // Set life count to 3
+            lives.lives_number = 3;         // Set life count to 3
 
             game_over = new GameOver(device);
 
@@ -146,7 +146,7 @@ namespace StepDX
            // world.Add(platform);
 
             //FOR Adding trogdor to the monster polygon
-            Texture texture6 = TextureLoader.FromFile(device, "../../trogdorgood.bmp");
+            Texture texture6 = TextureLoader.FromFile(device, "../../trogdor1.png");
 
 
             Monster monster = new Monster();
@@ -412,14 +412,23 @@ namespace StepDX
                             stood = true;
                         }
 
-                        //if hit monsters right side... you lose/ game over
-                        if (p.isMonster && player.V.X < 0 && PlayerFeet().Y < 1.8)
+                        // IF PLAYER is not on GROUND
+                        if (p.isMonster && player.V.Y != 0)
                         {
-
-
+                            v.Y = 5.5f;
+                            stood = false;
+                            //v.X = -15.5f;
+                            player.A = new Vector2(0, -6.8f);
+                            score.AddFlyingScore(100, PlayerFeet().X, PlayerFeet().Y, lastTime);
+                            audio.PNT();
+                        }
+                        //if hit monster's right side... you lose/ game over
+                        else if (p.isMonster && player.V.X < 0)
+                        {
                             lives.lives_number -= 3;
                             if (lives.lives_number < 1)
                             {
+                                lives.lives_number = 0;
                                 game_over.gameOver = true;
 
                             }
@@ -429,37 +438,21 @@ namespace StepDX
                         //Walking into monster
                         //if (p.isMonster && player.V.Y == 0 && player.V.X != 0)
 
-                        // IF PLAYER is on GROUND
-                        else if (p.isMonster && player.V.X>= 0)
-                        {
-                            v.Y = 5.5f;
-                           v.X = -15.5f;
-                           player.A = new Vector2(0, -6.8f);
-                            audio.JMP();
-                         
-                            lives.lives_number -= 1;
-                            if (lives.lives_number < 1)
-                            {
-                                game_over.gameOver = true;
-                               
-                            }
-                          
-                        }
+
 
                         //Jumping onto monster
-                        //else if (p.isMonster && player.V.Y != 0 && PlayerFeet().Y>=1.8)
-                        //{
-                           // v.Y = 5.5f;
+                       // if (p.isMonster && player.V.Y != 0)
+                       // {
+                         //   v.Y = 5.5f;
+                          //  stood = false;
+                          //  score.AddFlyingScore(100, PlayerFeet().X, PlayerFeet().Y, lastTime);
+                          //  audio.PNT();
+                          // player.A = new Vector2(0, -6.8f);
+                           
+                       // }
 
-                            //score.AddFlyingScore(100, PlayerFeet().X, PlayerFeet().Y, lastTime);
-
-                           // audio.PNT();
-                           // player.A = new Vector2(0, -6.8f);
-                           // stood = false;
-                        //}
-
-                        player.V = v;
-                        player.Advance(0);
+                       player.V = v;
+                       player.Advance(0);
 
                     }
                 }
