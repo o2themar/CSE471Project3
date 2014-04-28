@@ -21,6 +21,7 @@ namespace StepDX
         /// </summary>
         private Device device = null;
 
+        GameAudio audio; 
         /// <summary>
         /// Height of our playing area (meters)
         /// </summary>
@@ -52,6 +53,9 @@ namespace StepDX
         private System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 
         float playerMinY = 1.0f;                    // Minimum y allowed
+
+
+        public bool gamedelay = false;
 
         /// <summary>
         /// All of the polygons that make up our world
@@ -105,12 +109,13 @@ namespace StepDX
             string trapizoidfile = "../../trapizoid.txt";
             string arrowfile = "../../arrow.txt";
             string tboxfile = "../../tbox.txt";
-            
+
+            audio = new GameAudio(this);
 
             score = new Score(device);
 
             lives = new Lives(device);
-            lives.lives_number = 3;         // Set life count to 3
+            lives.lives_number = 3000;         // Set life count to 3
 
             game_over = new GameOver(device);
 
@@ -141,19 +146,21 @@ namespace StepDX
            // world.Add(platform);
 
             //FOR Adding trogdor to the monster polygon
-            Texture texture6 = TextureLoader.FromFile(device, "../../trogdor.bmp");
-            //PolygonTextured monster = new PolygonTextured();
-            //monster.Tex = texture6;
-            //ReadFileAndTexture(tboxfile, pt5, 15, 0);
-            //monster.Color = Color.Transparent;
+            Texture texture6 = TextureLoader.FromFile(device, "../../trogdorgood.bmp");
 
 
             Monster monster = new Monster();
-            monster.AddVertex(new Vector2(6, 1f));
-            monster.AddVertex(new Vector2(6, 1.8f));
-            monster.AddVertex(new Vector2(7f, 1.8f));
-            monster.AddVertex(new Vector2(7f, 1f));
-            monster.Color = Color.Blue;
+            monster.Tex = texture6;
+            monster.AddVertex(new Vector2(3, 1f));
+            monster.AddTex(new Vector2(1,1));
+            monster.AddVertex(new Vector2(3, 1.8f));
+            monster.AddTex(new Vector2(1,0));
+            monster.AddVertex(new Vector2(4, 1.8f));
+            monster.AddTex(new Vector2(0, 0));
+            monster.AddVertex(new Vector2(4, 1f));
+            monster.AddTex(new Vector2(0, 1));
+            monster.Color = Color.Transparent;
+            
             world.Add(monster);
 
             Texture texture = TextureLoader.FromFile(device, "../../metal.bmp");
@@ -311,9 +318,11 @@ namespace StepDX
             {
                 if (e.KeyCode == Keys.Right)
                 {
-                    Vector2 v = player.V;
-                    v.X = 1.5f;
-                    player.V = v;
+                
+                     Vector2 v = player.V;
+                     v.X = 1.5f;
+                     player.V = v;
+                   
                 }
                 else if (e.KeyCode == Keys.Left)
                 {
@@ -352,6 +361,7 @@ namespace StepDX
             long time = stopwatch.ElapsedMilliseconds;
             float delta = (time - lastTime) * 0.001f;       // Delta time in milliseconds
             lastTime = time;
+            float temptime = .5f;
 
             while (delta > 0)
             {
@@ -393,18 +403,32 @@ namespace StepDX
                         if (p.isMonster && player.V.Y != 0)
                         {
                             v.Y = 5.5f;
-                            //score.AddFlyingScore(100, 10, 5, 3.0);
-                            //audio.JMP();
-                            player.A = new Vector2(0, -9.8f);
+                            score.AddFlyingScore(100, 5, 3, 3.0);
+                            audio.PNT();
+                            player.A = new Vector2(0, -6.8f);
+                            stood = false;
                         }
 
 
-
-                        if (p.isMonster && player.V.Y == 0)
+                        // IF PLAYER is on GROUND
+                        if (p.isMonster && player.V.Y == 0 && stood)
                         {
-                            v.Y = 5.5f;
-                            // audio.JMP();
-                            player.A = new Vector2(0, -9.8f);
+
+                            //if (player.V.X > 0)
+                           // {
+                                v.X = -15.5f;
+                                
+                            //}
+
+                            //if (player.V.X < 0) v.X = 15.5f;
+                            audio.JMP();
+                         
+                            lives.lives_number -= 1;
+                            if (lives.lives_number < 1)
+                            {
+                                game_over.gameOver = true;
+                            }
+                          
                         }
                         player.V = v;
                         player.Advance(0);
@@ -416,7 +440,7 @@ namespace StepDX
             }
 
             score.Advance(time);
-
+            audio.BGD(); 
         }
 
         public void AddObstacle(float left, float right, float bottom, float top, Color color)
