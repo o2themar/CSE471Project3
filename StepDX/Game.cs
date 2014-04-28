@@ -126,19 +126,35 @@ namespace StepDX
             floor.Color = Color.CornflowerBlue;
             world.Add(floor);
 
-            AddObstacle(2, 3, 1.7f, 1.9f, Color.Crimson);
-            AddObstacle(4, 4.2f, 1, 2.1f, Color.Coral);
-            AddObstacle(5, 6, 2.2f, 2.4f, Color.BurlyWood);
-            AddObstacle(5.5f, 6.5f, 3.2f, 3.4f, Color.PeachPuff);
-            AddObstacle(6.5f, 7.5f, 2.5f, 2.7f, Color.Chocolate);
+            //AddObstacle(2, 3, 1.7f, 1.9f, Color.Crimson);
+            //AddObstacle(4, 4.2f, 1, 2.1f, Color.Coral);
+            //AddObstacle(5, 6, 2.2f, 2.4f, Color.BurlyWood);
+            //AddObstacle(5.5f, 6.5f, 3.2f, 3.4f, Color.PeachPuff);
+            //AddObstacle(6.5f, 7.5f, 2.5f, 2.7f, Color.Chocolate);
 
-            Platform platform = new Platform();
-            platform.AddVertex(new Vector2(3.2f, 2));
-            platform.AddVertex(new Vector2(3.9f, 2));
-            platform.AddVertex(new Vector2(3.9f, 1.8f));
-            platform.AddVertex(new Vector2(3.2f, 1.8f));
-            platform.Color = Color.CornflowerBlue;
-            world.Add(platform);
+            //Platform platform = new Platform();
+            //platform.AddVertex(new Vector2(3.2f, 2));
+            //platform.AddVertex(new Vector2(3.9f, 2));
+            //platform.AddVertex(new Vector2(3.9f, 1.8f));
+            //platform.AddVertex(new Vector2(3.2f, 1.8f));
+           // platform.Color = Color.CornflowerBlue;
+           // world.Add(platform);
+
+            //FOR Adding trogdor to the monster polygon
+            Texture texture6 = TextureLoader.FromFile(device, "../../trogdor.bmp");
+            //PolygonTextured monster = new PolygonTextured();
+            //monster.Tex = texture6;
+            //ReadFileAndTexture(tboxfile, pt5, 15, 0);
+            //monster.Color = Color.Transparent;
+
+
+            Monster monster = new Monster();
+            monster.AddVertex(new Vector2(6, 1f));
+            monster.AddVertex(new Vector2(6, 1.8f));
+            monster.AddVertex(new Vector2(7f, 1.8f));
+            monster.AddVertex(new Vector2(7f, 1f));
+            monster.Color = Color.Blue;
+            world.Add(monster);
 
             Texture texture = TextureLoader.FromFile(device, "../../metal.bmp");
             PolygonTextured pt = new PolygonTextured();
@@ -163,7 +179,7 @@ namespace StepDX
             Texture texture2 = TextureLoader.FromFile(device, "../../black_dots.bmp");
             PolygonTextured pt2 = new PolygonTextured();
             pt2.Tex = texture2;
-            ReadFileAndTexture(trianglefile, pt2, 0, 0);
+            ReadFileAndTexture(trianglefile, pt2, 3, 0);
             pt2.Color = Color.Transparent;
             world.Add(pt2);
 
@@ -171,7 +187,7 @@ namespace StepDX
             Texture texture3 = TextureLoader.FromFile(device, "../../colorful.bmp");
             PolygonTextured pt3 = new PolygonTextured();
             pt3.Tex = texture3;
-            ReadFileAndTexture(trapizoidfile, pt3, 0, 0);
+            ReadFileAndTexture(trapizoidfile, pt3, 5, 0);
             pt3.Color = Color.Transparent;
             world.Add(pt3);
 
@@ -179,7 +195,7 @@ namespace StepDX
             Texture texture4 = TextureLoader.FromFile(device, "../../flower.bmp");
             PolygonTextured pt4 = new PolygonTextured();
             pt4.Tex = texture4;
-            ReadFileAndTexture(arrowfile, pt4, 2.0f, 0);
+            ReadFileAndTexture(arrowfile, pt4, 7f, 0);
             pt4.Color = Color.Transparent;
             world.Add(pt4);
 
@@ -187,7 +203,7 @@ namespace StepDX
             Texture texture5 = TextureLoader.FromFile(device, "../../lightning.bmp");
             PolygonTextured pt5 = new PolygonTextured();
             pt5.Tex = texture5;
-            ReadFileAndTexture(tboxfile, pt5, 0, 0);
+            ReadFileAndTexture(tboxfile, pt5, 9, 0);
             pt5.Color = Color.Transparent;
             world.Add(pt5);
 
@@ -369,6 +385,26 @@ namespace StepDX
                         {
                             v.Y = 0;
                             stood = true;
+                        }
+                        //Walking into monster
+                        //if (p.isMonster && player.V.Y == 0 && player.V.X != 0)
+
+                        //Jumping onto monster
+                        if (p.isMonster && player.V.Y != 0)
+                        {
+                            v.Y = 5.5f;
+                            //score.AddFlyingScore(100, 10, 5, 3.0);
+                            //audio.JMP();
+                            player.A = new Vector2(0, -9.8f);
+                        }
+
+
+
+                        if (p.isMonster && player.V.Y == 0)
+                        {
+                            v.Y = 5.5f;
+                            // audio.JMP();
+                            player.A = new Vector2(0, -9.8f);
                         }
                         player.V = v;
                         player.Advance(0);

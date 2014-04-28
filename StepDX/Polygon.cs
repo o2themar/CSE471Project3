@@ -40,6 +40,8 @@ namespace StepDX
         /// </summary>
         public virtual List<Vector2> Vertices { get { return verticesB; } }
 
+        ///Check if it's a monster
+        public bool isMonster = false;
 
         /// <summary>
         /// Add a vertex to the polygon.  Must be called before the
