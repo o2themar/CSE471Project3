@@ -75,12 +75,12 @@ namespace StepDX
         /// <summary>
         /// Speed in meters per second
         /// </summary>
-        private float speed = 1;
+        private float speed = 1f;
 
         /// <summary>
         /// How high we go
         /// </summary>
-        private float maxWidth = 1;
+        private float maxWidth = 1f;
 
         /// <summary>
         /// Save the current platform position state
@@ -158,8 +158,8 @@ namespace StepDX
             time += dt;
 
             // I'm going to base my width entirely on the current time.
-            // From 0 to speed, we are rising, speed to 2*speed we are 
-            // falling.  So we need to know what step we are in.
+            // From 0 to speed, we are going right, speed to 2*speed we are 
+            // lefting.  So we need to know what step we are in.
             float w;
 
             isMonster = true;  //we know it's a monster...

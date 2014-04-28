@@ -163,6 +163,21 @@ namespace StepDX
             
             world.Add(monster);
 
+
+            Monster monster2 = new Monster();
+            monster2.Tex = texture6;
+            monster2.AddVertex(new Vector2(6, 1f));
+            monster2.AddTex(new Vector2(1, 1));
+            monster2.AddVertex(new Vector2(6, 1.8f));
+            monster2.AddTex(new Vector2(1, 0));
+            monster2.AddVertex(new Vector2(7, 1.8f));
+            monster2.AddTex(new Vector2(0, 0));
+            monster2.AddVertex(new Vector2(7, 1f));
+            monster2.AddTex(new Vector2(0, 1));
+            monster2.Color = Color.Transparent;
+
+            world.Add(monster2);
+
             Texture texture = TextureLoader.FromFile(device, "../../metal.bmp");
             PolygonTextured pt = new PolygonTextured();
             pt.Tex = texture;
@@ -178,7 +193,7 @@ namespace StepDX
             pt.Color = Color.Transparent;
             world.Add(pt);*/
 
-            ReadFileAndTexture(pentegonfile, pt, 1, 0);
+            ReadFileAndTexture(pentegonfile, pt, 1f, 0f);
             pt.Color = Color.Transparent;
             world.Add(pt);
 
@@ -186,7 +201,7 @@ namespace StepDX
             Texture texture2 = TextureLoader.FromFile(device, "../../black_dots.bmp");
             PolygonTextured pt2 = new PolygonTextured();
             pt2.Tex = texture2;
-            ReadFileAndTexture(trianglefile, pt2, 3, 0);
+            ReadFileAndTexture(trianglefile, pt2, 3, .5f);
             pt2.Color = Color.Transparent;
             world.Add(pt2);
 
@@ -194,7 +209,7 @@ namespace StepDX
             Texture texture3 = TextureLoader.FromFile(device, "../../colorful.bmp");
             PolygonTextured pt3 = new PolygonTextured();
             pt3.Tex = texture3;
-            ReadFileAndTexture(trapizoidfile, pt3, 5, 0);
+            ReadFileAndTexture(trapizoidfile, pt3, 5, .8f);
             pt3.Color = Color.Transparent;
             world.Add(pt3);
 
@@ -396,40 +411,53 @@ namespace StepDX
                             v.Y = 0;
                             stood = true;
                         }
+
+                        //if hit monsters right side... you lose/ game over
+                        if (p.isMonster && player.V.X < 0 && PlayerFeet().Y < 1.8)
+                        {
+
+
+                            lives.lives_number -= 3;
+                            if (lives.lives_number < 1)
+                            {
+                                game_over.gameOver = true;
+
+                            }
+                            
+                        }
+
                         //Walking into monster
                         //if (p.isMonster && player.V.Y == 0 && player.V.X != 0)
 
-                        //Jumping onto monster
-                        if (p.isMonster && player.V.Y != 0)
+                        // IF PLAYER is on GROUND
+                        else if (p.isMonster && player.V.X>= 0)
                         {
                             v.Y = 5.5f;
-                            score.AddFlyingScore(100, 5, 3, 3.0);
-                            audio.PNT();
-                            player.A = new Vector2(0, -6.8f);
-                            stood = false;
-                        }
-
-
-                        // IF PLAYER is on GROUND
-                        if (p.isMonster && player.V.Y == 0 && stood)
-                        {
-
-                            //if (player.V.X > 0)
-                           // {
-                                v.X = -15.5f;
-                                
-                            //}
-
-                            //if (player.V.X < 0) v.X = 15.5f;
+                           v.X = -15.5f;
+                           player.A = new Vector2(0, -6.8f);
                             audio.JMP();
                          
                             lives.lives_number -= 1;
                             if (lives.lives_number < 1)
                             {
                                 game_over.gameOver = true;
+                               
                             }
                           
                         }
+
+                        //Jumping onto monster
+                        //else if (p.isMonster && player.V.Y != 0 && PlayerFeet().Y>=1.8)
+                        //{
+                           // v.Y = 5.5f;
+
+                            //score.AddFlyingScore(100, PlayerFeet().X, PlayerFeet().Y, lastTime);
+
+                           // audio.PNT();
+                           // player.A = new Vector2(0, -6.8f);
+                           // stood = false;
+                        //}
+
                         player.V = v;
                         player.Advance(0);
 
