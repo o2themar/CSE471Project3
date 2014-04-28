@@ -491,5 +491,24 @@ namespace StepDX
                 Console.WriteLine(e.Message);
             }
         }
+
+        //Gives a point that is approximately at the player's feet
+        public Point PlayerFeet()
+        {
+            float aspect = (float)Width / (float)Height;     // What is the aspect ratio?
+
+            float widP = playingH * aspect;         // Total width of window
+
+            float winCenter = player.P.X;
+            if (winCenter - widP / 2 < 0)
+                winCenter = widP / 2;
+            else if (winCenter + widP / 2 > playingW)
+                winCenter = playingW - widP / 2;
+
+            int x = Convert.ToInt32((player.P.X - (winCenter - widP / 2)) / widP * Width) - 25;
+            int y = Height - Convert.ToInt32(player.P.Y / playingH * Height) - 40;
+
+            return new Point(x, y);
+        }
     }
 }
