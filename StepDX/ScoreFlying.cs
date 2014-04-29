@@ -32,7 +32,11 @@ namespace StepDX
         //Display flying score
         public void DisplayScore(Microsoft.DirectX.Direct3D.Font font)
         {
-            font.DrawText(null, "+" + scorenum, pos, Color.LightCyan);
+            if (scorenum > 0) 
+            {font.DrawText(null, "+" + scorenum, pos, Color.LightCyan);}
+
+            if (scorenum < 0)
+            { font.DrawText(null, "" + scorenum, pos, Color.LightCyan); }
         }
 
     }

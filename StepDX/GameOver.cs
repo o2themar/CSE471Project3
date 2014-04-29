@@ -47,6 +47,7 @@ namespace StepDX
                 "Game Over",  // Text to draw
                 new Point(300, 150),  // Location on the display (pixels with 0,0 as upper left)
                 Color.Red);   // Font color
+
         }
     }
 }

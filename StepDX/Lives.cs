@@ -53,7 +53,7 @@ namespace StepDX
             // Show number of lives in upper left corner
             font.DrawText(null,     // Because I say so
                 "Lives: " + lives_num,  // Text to draw
-                new Point(15, 25),  // Location on the display (pixels with 0,0 as upper left)
+                new Point(10, 10),  // Location on the display (pixels with 0,0 as upper left)
                 Color.LightCyan);   // Font color
         }
 

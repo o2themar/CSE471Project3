@@ -42,6 +42,11 @@ namespace StepDX
 
         ///Check if it's a monster
         public bool isMonster = false;
+        public bool isBig = false;
+        public bool is748 = false;
+        public bool is2 = false;
+        public int points_to_give = 1;
+        public bool ismapped = false;
 
         /// <summary>
         /// Add a vertex to the polygon.  Must be called before the

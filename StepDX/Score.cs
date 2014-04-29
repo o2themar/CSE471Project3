@@ -67,11 +67,12 @@ namespace StepDX
 
         public void DisplayScore()
         {
+          
 
             // Show score in upper left corner
             font.DrawText(null,     // Because I say so
                 "Score: " + scorenum,  // Text to draw
-                new Point(10, 10),  // Location on the display (pixels with 0,0 as upper left)
+                new Point(10, 25),  // Location on the display (pixels with 0,0 as upper left)
                 Color.LightCyan);   // Font color
 
             foreach (ScoreFlying s in FlyingScores)
@@ -99,6 +100,29 @@ namespace StepDX
             foreach (ScoreFlying s in ToRemove)
             {
                 FlyingScores.Remove(s);
+            }
+        }
+
+
+         public void DisplayFinalScore()
+        {
+            //create the font
+           
+
+            if (scorenum <= 2048)
+            {
+                font.DrawText(null, "You Have Been Burninated!!!",
+                    new Point(300, 190),
+                    Color.Orange);
+            }
+            else
+            {
+                font.DrawText(null, "You fought Valiantly!!!",
+                    new Point(180, 190),
+                    Color.Yellow);
+                font.DrawText(null, "...until you died!!!",
+                    new Point(210, 230),
+                    Color.Yellow);
             }
         }
 

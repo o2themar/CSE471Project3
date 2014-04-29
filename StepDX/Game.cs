@@ -131,19 +131,28 @@ namespace StepDX
             floor.Color = Color.CornflowerBlue;
             world.Add(floor);
 
+
+            Polygon ceil = new Polygon();
+            ceil.AddVertex(new Vector2(0, 1));
+            ceil.AddVertex(new Vector2(playingW, 1));
+            ceil.AddVertex(new Vector2(playingW, 0.9f));
+            ceil.AddVertex(new Vector2(0, 0.9f));
+            ceil.Color = Color.CornflowerBlue;
+            world.Add(ceil);
+
             //AddObstacle(2, 3, 1.7f, 1.9f, Color.Crimson);
             //AddObstacle(4, 4.2f, 1, 2.1f, Color.Coral);
             //AddObstacle(5, 6, 2.2f, 2.4f, Color.BurlyWood);
             //AddObstacle(5.5f, 6.5f, 3.2f, 3.4f, Color.PeachPuff);
             //AddObstacle(6.5f, 7.5f, 2.5f, 2.7f, Color.Chocolate);
 
-            //Platform platform = new Platform();
-            //platform.AddVertex(new Vector2(3.2f, 2));
-            //platform.AddVertex(new Vector2(3.9f, 2));
-            //platform.AddVertex(new Vector2(3.9f, 1.8f));
-            //platform.AddVertex(new Vector2(3.2f, 1.8f));
-           // platform.Color = Color.CornflowerBlue;
-           // world.Add(platform);
+            Platform platform = new Platform();
+            platform.AddVertex(new Vector2(18.2f, 2));
+            platform.AddVertex(new Vector2(18.7f, 2));
+            platform.AddVertex(new Vector2(18.7f, 1.8f));
+            platform.AddVertex(new Vector2(18.2f, 1.8f));
+           platform.Color = Color.CornflowerBlue;
+            world.Add(platform);
 
             //FOR Adding trogdor to the monster polygon
             Texture texture6 = TextureLoader.FromFile(device, "../../trogdor1.png");
@@ -160,7 +169,7 @@ namespace StepDX
             monster.AddVertex(new Vector2(4, 1f));
             monster.AddTex(new Vector2(0, 1));
             monster.Color = Color.Transparent;
-            
+            monster.Transparent =true;
             world.Add(monster);
 
 
@@ -175,8 +184,84 @@ namespace StepDX
             monster2.AddVertex(new Vector2(7, 1f));
             monster2.AddTex(new Vector2(0, 1));
             monster2.Color = Color.Transparent;
-
+            monster2.Transparent = true;
             world.Add(monster2);
+
+            Monster monster3 = new Monster();
+            monster3.Tex = texture6;
+            monster3.AddVertex(new Vector2(13, 1f));
+            monster3.AddTex(new Vector2(1, 1));
+            monster3.AddVertex(new Vector2(13, 2f));
+            monster3.AddTex(new Vector2(1, 0));
+            monster3.AddVertex(new Vector2(14, 2f));
+            monster3.AddTex(new Vector2(0, 0));
+            monster3.AddVertex(new Vector2(14, 1f));
+            monster3.AddTex(new Vector2(0, 1));
+            monster3.Color = Color.Transparent;
+            monster3.Transparent = true;
+            world.Add(monster3);
+
+            Monster monster4 = new Monster();
+            monster4.isBig = true;
+            monster4.Tex = texture6;
+            monster4.AddVertex(new Vector2(15, 1f));
+            monster4.AddTex(new Vector2(1, 1));
+            monster4.AddVertex(new Vector2(15, 2.8f));
+            monster4.AddTex(new Vector2(1, 0));
+            monster4.AddVertex(new Vector2(16, 2.8f));
+            monster4.AddTex(new Vector2(0, 0));
+            monster4.AddVertex(new Vector2(16, 1f));
+            monster4.AddTex(new Vector2(0, 1));
+            monster4.Color = Color.Transparent;
+            monster4.Transparent = true;
+            world.Add(monster4);
+
+
+            Monster monster5 = new Monster();
+            monster5.Tex = texture6;
+            monster5.isBig = true;
+            monster5.AddVertex(new Vector2(19, 1f));
+            monster5.AddTex(new Vector2(1, 1));
+            monster5.AddVertex(new Vector2(19, 2.3f));
+            monster5.AddTex(new Vector2(1, 0));
+            monster5.AddVertex(new Vector2(21, 2.3f));
+            monster5.AddTex(new Vector2(0, 0));
+            monster5.AddVertex(new Vector2(21, 1f));
+            monster5.AddTex(new Vector2(0, 1));
+            monster5.Color = Color.Transparent;
+            monster5.Transparent = true;
+            world.Add(monster5);
+
+            Monster monster6 = new Monster();
+            monster6.Tex = texture6;
+            monster6.is748 = true;
+            monster6.AddVertex(new Vector2(21, 1f));
+            monster6.AddTex(new Vector2(1, 1));
+            monster6.AddVertex(new Vector2(21, 3f));
+            monster6.AddTex(new Vector2(1, 0));
+            monster6.AddVertex(new Vector2(23, 3f));
+            monster6.AddTex(new Vector2(0, 0));
+            monster6.AddVertex(new Vector2(23, 1f));
+            monster6.AddTex(new Vector2(0, 1));
+            monster6.Color = Color.Transparent;
+            monster6.Transparent = true;
+            world.Add(monster6);
+
+            Monster monster7 = new Monster();
+            monster7.Tex = texture6;
+            monster7.is2 = true;
+            monster7.AddVertex(new Vector2(28, 1f));
+            monster7.AddTex(new Vector2(1, 1));
+            monster7.AddVertex(new Vector2(28, 4f));
+            monster7.AddTex(new Vector2(1, 0));
+            monster7.AddVertex(new Vector2(31, 4f));
+            monster7.AddTex(new Vector2(0, 0));
+            monster7.AddVertex(new Vector2(31, 1f));
+            monster7.AddTex(new Vector2(0, 1));
+            monster7.Color = Color.Transparent;
+            monster7.Transparent = true;
+            world.Add(monster7);
+
 
             Texture texture = TextureLoader.FromFile(device, "../../metal.bmp");
             PolygonTextured pt = new PolygonTextured();
@@ -195,20 +280,23 @@ namespace StepDX
 
             ReadFileAndTexture(pentegonfile, pt, 1f, 0f);
             pt.Color = Color.Transparent;
+            pt.ismapped = true;
             world.Add(pt);
 
 
             Texture texture2 = TextureLoader.FromFile(device, "../../black_dots.bmp");
             PolygonTextured pt2 = new PolygonTextured();
             pt2.Tex = texture2;
+            pt2.ismapped = true;
             ReadFileAndTexture(trianglefile, pt2, 3, .5f);
             pt2.Color = Color.Transparent;
             world.Add(pt2);
 
 
-            Texture texture3 = TextureLoader.FromFile(device, "../../colorful.bmp");
+            Texture texture3 = TextureLoader.FromFile(device, "../../metal.bmp");
             PolygonTextured pt3 = new PolygonTextured();
             pt3.Tex = texture3;
+            pt3.ismapped = true;
             ReadFileAndTexture(trapizoidfile, pt3, 5, .8f);
             pt3.Color = Color.Transparent;
             world.Add(pt3);
@@ -217,6 +305,7 @@ namespace StepDX
             Texture texture4 = TextureLoader.FromFile(device, "../../flower.bmp");
             PolygonTextured pt4 = new PolygonTextured();
             pt4.Tex = texture4;
+            pt4.ismapped = true;
             ReadFileAndTexture(arrowfile, pt4, 7f, 0);
             pt4.Color = Color.Transparent;
             world.Add(pt4);
@@ -225,6 +314,7 @@ namespace StepDX
             Texture texture5 = TextureLoader.FromFile(device, "../../lightning.bmp");
             PolygonTextured pt5 = new PolygonTextured();
             pt5.Tex = texture5;
+            pt5.ismapped = true;
             ReadFileAndTexture(tboxfile, pt5, 9, 0);
             pt5.Color = Color.Transparent;
             world.Add(pt5);
@@ -318,6 +408,7 @@ namespace StepDX
             if (game_over.gameOver)
             {
                 game_over.DisplayGameOver();
+                score.DisplayFinalScore();
             }
 
             //End the scene
@@ -348,6 +439,7 @@ namespace StepDX
                 else if (e.KeyCode == Keys.Space && stood == true)  // only allow jumps from standing condition
                 {
                     stood = false;
+                    audio.JMP();
                     Vector2 v = player.V;
                     v.Y = 5.5f;
                     player.V = v;
@@ -376,7 +468,7 @@ namespace StepDX
             long time = stopwatch.ElapsedMilliseconds;
             float delta = (time - lastTime) * 0.001f;       // Delta time in milliseconds
             lastTime = time;
-            float temptime = .5f;
+            
 
             while (delta > 0)
             {
@@ -412,18 +504,76 @@ namespace StepDX
                             stood = true;
                         }
 
-                        // IF PLAYER is not on GROUND
+
+
+                        //
+                        if (p.ismapped)
+                        {
+                            score.AddFlyingScore(-1, PlayerFeet().X, PlayerFeet().Y, lastTime);
+                        }
+
+
+
+                        // IF PLAYER is not on GROUND and touches a MONSTER!!!
                         if (p.isMonster && player.V.Y != 0)
                         {
                             v.Y = 5.5f;
                             stood = false;
-                            //v.X = -15.5f;
+
+                            v.X = -10.5f;
+                           
                             player.A = new Vector2(0, -6.8f);
-                            score.AddFlyingScore(100, PlayerFeet().X, PlayerFeet().Y, lastTime);
-                            audio.PNT();
+
+                            if (p.points_to_give > 0)
+                            {
+
+                                if (p.is2)
+                                {
+                                    v.X = -125.5f;
+                                    score.AddFlyingScore(2, PlayerFeet().X, PlayerFeet().Y, lastTime);
+                                    p.points_to_give +=1; // this will always give points
+                                    lives.lives_number -= 1;
+                                    if (lives.lives_number < 1)
+                                    {
+                                        lives.lives_number = 0;
+                                        game_over.gameOver = true;
+
+                                    }
+                                }
+                                if (p.is748)
+                                {
+                                    score.AddFlyingScore(748, PlayerFeet().X, PlayerFeet().Y, lastTime);
+                                    v.X = -25.5f;
+                                    lives.lives_number -= 1;
+                                    if (lives.lives_number < 1)
+                                    {
+                                        lives.lives_number = 0;
+                                        game_over.gameOver = true;
+
+                                    }
+                                }
+                                else if (!p.isBig) score.AddFlyingScore(100, PlayerFeet().X, PlayerFeet().Y, lastTime);
+                                else score.AddFlyingScore(500, PlayerFeet().X, PlayerFeet().Y, lastTime);
+                                p.points_to_give -= 1;
+                                audio.PNT();
+                            }
                         }
+
+                        else if (p.isMonster && player.V.Y != 0)
+                        {
+                            v.X = -25.5f;
+                            lives.lives_number -= 1;
+                            if (lives.lives_number < 1)
+                            {
+                                lives.lives_number = 0;
+                                game_over.gameOver = true;
+
+                            }
+                            audio.JMP();
+                        }
+
                         //if hit monster's right side... you lose/ game over
-                        else if (p.isMonster && player.V.X < 0)
+                        else if (p.isMonster && player.V.X <= 0 )
                         {
                             lives.lives_number -= 3;
                             if (lives.lives_number < 1)
@@ -434,23 +584,6 @@ namespace StepDX
                             }
                             
                         }
-
-                        //Walking into monster
-                        //if (p.isMonster && player.V.Y == 0 && player.V.X != 0)
-
-
-
-                        //Jumping onto monster
-                       // if (p.isMonster && player.V.Y != 0)
-                       // {
-                         //   v.Y = 5.5f;
-                          //  stood = false;
-                          //  score.AddFlyingScore(100, PlayerFeet().X, PlayerFeet().Y, lastTime);
-                          //  audio.PNT();
-                          // player.A = new Vector2(0, -6.8f);
-                           
-                       // }
-
                        player.V = v;
                        player.Advance(0);
 
